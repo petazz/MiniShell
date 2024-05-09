@@ -32,11 +32,9 @@ static long int	ft_len(long number)
 
 int	ft_putnbr_pf_pf(int n)
 {
-	int	nbr;
 	int	c;
 
 	c = ft_len(n);
-	nbr = n;
 	if (n == -2147483648)
 		ft_putstr_pf("-2147483648");
 	else

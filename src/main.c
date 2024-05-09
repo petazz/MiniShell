@@ -1,25 +1,38 @@
+#include "minishell.h"
+
+void    init_stack(t_cmd *mock_cmd, t_msh *mock_msh, char **envp)
+{
+    char **mock_args = malloc(sizeof(char*) * 10);
+    mock_args[0] = "echo";
+    mock_args[1] = "-n";
+    mock_args[2] = "hola";
+    mock_args[3] = 0;
+    ///////////////T_CMD///////////////
+        mock_cmd->path = "/bin/ls";
+        mock_cmd->argv = mock_args;
+        mock_cmd->len_argv = 2;
+    ///////////////T_MSH///////////////
+        mock_msh->cmd = &mock_cmd;
+        mock_msh->len_cmds = 1,
+        mock_msh->envp = envp;
+        mock_msh->fdin = -1;
+        mock_msh->fdout = -1;
+}
+
 int main(int argc, char **argv, char **envp)
 {
     (void)argc;
     (void)argv;
-    char **mock_args = malloc(sizeof(char*) * 10);
-    mock_args[0] = "ls";
-    mock_args[1] = "-l";
-    mock_args[2] = 0;
-    t_cmd mock_ls = {
-        .path = "/bin/ls",
-        .arg = mock_args,
-        .len_arg = 2
-    };
-    t_msh mock = {
-        .cmd = &mock_ls,
-        .len_cmds = 1,
-        .envp = envp,
-        .fdinfile = -1,
-        .fdoutfile = -1,
-    };
-    //(void)mock;
-    ft_echo(mock.cmd->arg);
+    t_cmd mock_cmd;
+    t_msh mock_msh;
+    init_stack(&mock_cmd, &mock_msh, envp);
+
+    //hay que añadir el gnl que se ha borrado y comentado en el makefile
+    // y arreglar el include
+    ft_echo(mock_cmd.argv);
+
+
+    ///////////READLINE////////////
     // char *line = readline("minishell$ ");
     // while (line)
     // {
