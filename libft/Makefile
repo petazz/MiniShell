@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: usuario <usuario@student.42.fr>            +#+  +:+       +#+         #
+#    By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/18 16:02:50 by pgonzal2          #+#    #+#              #
-#    Updated: 2024/05/09 02:27:57 by usuario          ###   ########.fr        #
+#    Updated: 2024/05/09 12:51:31 by pgonzal2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,8 @@ OBJ_BONUS           = $(SRC_BONUS:$(SRC_DIR_BONUS)%.c=$(OBJ_DIR_BONUS)%.o)
 SRC_PRINTF          = $(addprefix $(SRC_DIR_PRINTF),$(FILES_PRINTF))
 OBJ_PRINTF          = $(SRC_PRINTF:$(SRC_DIR_PRINTF)%.c=$(OBJ_DIR_PRINTF)%.o)
 
-#SRC_GNL             = $(addprefix $(SRC_DIR_GNL),$(FILES_GNL))
-#OBJ_GNL             = $(SRC_GNL:$(SRC_DIR_GNL)%.c=$(OBJ_DIR_GNL)%.o)
+SRC_GNL             = $(addprefix $(SRC_DIR_GNL),$(FILES_GNL))
+OBJ_GNL             = $(SRC_GNL:$(SRC_DIR_GNL)%.c=$(OBJ_DIR_GNL)%.o)
 
 vpath %.c $(SRC_DIR) $(SRC_DIR_BONUS) $(SRC_DIR_PRINTF) $(SRC_DIR_GNL)
 

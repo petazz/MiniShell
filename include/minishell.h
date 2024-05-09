@@ -30,5 +30,6 @@ typedef struct s_msh
 
 //////////////BUILT-INS//////////////
 void    ft_echo(char **args);
+void	ft_cd(char **args);
 
 #endif

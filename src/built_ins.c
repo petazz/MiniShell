@@ -7,7 +7,7 @@ void    ft_echo(char **args)
 
 	i = 1;
 	n_flag = 0;
-	if(args[1] && (!strncmp(args[1], "-n", 3)))
+	if(args[1] && (!ft_strncmp(args[1], "-n", 3)))
 	{
 		n_flag = 1;
 		i++;
@@ -20,4 +20,9 @@ void    ft_echo(char **args)
 			printf("%s\n", args[i]);
 		i++;	
 	}
+}
+
+void	ft_cd(char **args)
+{
+	printf("%d", chdir(args[1]));
 }

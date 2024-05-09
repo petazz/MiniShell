@@ -5,7 +5,7 @@ LIBFT_DIR         = libft/
 LIBFT             = libft.a
 NAME              = minishell
 CC                = gcc
-CFLAGS            = -Wall -Werror -Wextra -Iincludes -g -I/include
+CFLAGS            = -Wall -Werror -Wextra -Iincludes -g -Iinclude
 RM                = rm -rf
 
 SRC_DIR           = src/

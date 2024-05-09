@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **envp)
     //hay que añadir el gnl que se ha borrado y comentado en el makefile
     // y arreglar el include
     ft_echo(mock_cmd.argv);
-
+	//ft_cd(mock_cmd.argv);
 
     ///////////READLINE////////////
     // char *line = readline("minishell$ ");
