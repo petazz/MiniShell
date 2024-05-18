@@ -31,6 +31,7 @@ typedef struct s_msh
 //////////////BUILT-INS//////////////
 void    ft_echo(t_cmd *cmd);
 void	ft_pwd();
-void	ft_cd(char *path);
+void	ft_cd(t_cmd *cmd);
+void    ft_env(t_cmd *cmd);
 
 #endif

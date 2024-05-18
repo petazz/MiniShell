@@ -11,7 +11,7 @@ void    init_stack(t_cmd *cmd, t_msh *mock_msh, char **envp)
     mock_args[4] = "hola";
     mock_args[5] = "AAAA";
     ///////////////T_CMD///////////////
-        cmd->path = "/bin/ls";
+        cmd->path = "ls";
         cmd->argv = mock_args;
         cmd->len_argv = 6;
     ///////////////T_MSH///////////////
@@ -33,9 +33,9 @@ int main(int argc, char **argv, char **envp)
     //hay que añadir el gnl que se ha borrado y comentado en el makefile
     // y arreglar el include
     //ft_echo(&cmd);
-	ft_pwd();
-	ft_cd(cmd.argv[1]);
-	ft_pwd();
+	//ft_pwd();
+	//ft_cd(cmd.argv[1]);
+	ft_env(&cmd);
 
     ///////////READLINE////////////
     // char *line = readline("minishell$ ");

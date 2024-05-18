@@ -30,8 +30,14 @@ void	ft_pwd()
 	printf("%s\n", buffer);
 }
 
-void	ft_cd(char *path)
+void	ft_cd(t_cmd *cmd)
 {
-	if (chdir(path) < 0)
-		perror(path);
+	if (chdir(cmd->argv[1]) < 0)
+		perror("error");
+}
+
+void	ft_env(t_cmd *cmd)
+{
+	(void)cmd;
+	printf("%s\n", getenv("USER"));
 }
