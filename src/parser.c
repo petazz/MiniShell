@@ -1,4 +1,4 @@
-#include "minishell.h"
+/*#include "minishell.h"
 
 void    tokens(t_msh *msh)
 {
@@ -23,3 +23,4 @@ void    check_lexer(t_msh *msh)
     }
 
 }
+*/

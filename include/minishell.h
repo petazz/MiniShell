@@ -55,7 +55,10 @@ typedef struct s_msh
 void    organization_env(char **envp,t_msh *msh);
 
 //////////////BUILT-INS//////////////
-void    ft_echo(char **args);
-void	ft_cd(char **args);
+void    ft_echo(t_cmd *cmd);
+void	ft_cd(t_cmd *cmd);
+void    ft_pwd();
+void    ft_env(t_cmd *cmd);
+void	ft_export(t_msh *msh);
 
 #endif
