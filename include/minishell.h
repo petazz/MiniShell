@@ -51,7 +51,8 @@ typedef struct s_msh
     int fdin; // -1 if not exist
     int fdout;
 }   t_msh;
-
+///////Envp////////
+void    organization_env(char **envp,t_msh *msh);
 
 //////////////BUILT-INS//////////////
 void    ft_echo(char **args);

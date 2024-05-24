@@ -11,7 +11,7 @@ RM                = rm -rf
 SRC_DIR           = src/
 OBJ_DIR           = obj/
 
-FILES_SRC         = main.c built_ins.c
+FILES_SRC         = main.c built_ins.c function_env.c
 
 SRC               = $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC           = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
