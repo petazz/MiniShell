@@ -25,9 +25,13 @@ void    ft_echo(t_cmd *cmd)
 
 void	ft_pwd()
 {
-	char buffer[200];
-	getcwd(buffer, 200);
-	printf("%s\n", buffer);
+	char *cwd;
+
+	cwd = getcwd(NULL, 0);
+	if(!cwd)
+		perror("error");
+	printf("%s\n", cwd);
+	free(cwd);
 }
 
 void	ft_cd(t_cmd *cmd)
@@ -39,5 +43,5 @@ void	ft_cd(t_cmd *cmd)
 void	ft_env(t_cmd *cmd)
 {
 	(void)cmd;
-	printf("%s\n", getenv("USER"));
+	printf("%s\n", getenv("PATH"));
 }

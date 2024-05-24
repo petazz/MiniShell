@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+         #
+#    By: pgonzal2 <pgonzal2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/18 16:02:50 by pgonzal2          #+#    #+#              #
-#    Updated: 2024/05/09 12:51:31 by pgonzal2         ###   ########.fr        #
+#    Updated: 2024/05/24 12:20:31 by pgonzal2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME                = libft.a
-CC                  = gcc
+CC                  = clang
 CFLAGS              = -Wall -Werror -Wextra -Iincludes
 RM                  = rm -rf
 AR                  = ar rcs

@@ -4,7 +4,7 @@ LIB = -lreadline
 LIBFT_DIR         = libft/
 LIBFT             = libft.a
 NAME              = minishell
-CC                = gcc
+CC                = clang
 CFLAGS            = -Wall -Werror -Wextra -Iincludes -g -Iinclude
 RM                = rm -rf
 
