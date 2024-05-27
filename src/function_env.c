@@ -18,16 +18,6 @@ static void	create_first_node(char **envp,t_env *node)
 	node->content = ft_strdup(&envp[0][++i]);
 	node->next = NULL;
 }
-static void printenv(t_env *env)
-{
-	while(env)
-	{
-		printf("NAME: %s\n",env->name);
-		printf("CONTENT: %s\n",env->content);
-		printf("|||||||||||||||||||||||||||||||||\n");
-		env = env->next;
-	}
-}
 
 static void	take_env(t_env *aux,char **envp)
 {
@@ -35,8 +25,7 @@ static void	take_env(t_env *aux,char **envp)
 	int j;
 
 	i = 0;
-	j = 0;
-	while(envp[++i][j])
+	while(envp[++i])
 	{
 		aux->next = malloc(sizeof(t_env));
 		if (!aux->next)
@@ -67,5 +56,4 @@ void    organization_env(char **envp,t_msh *msh)
 	aux = msh->env;
 	create_first_node(envp,aux);
 	take_env(aux,envp);
-	printenv(msh->env);
 }

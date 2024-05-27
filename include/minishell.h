@@ -21,6 +21,8 @@ typedef struct s_cmd
 typedef struct s_tok
 {
     struct s_tok *next;
+    char *content;
+    int type;
 }   t_tok;
 
 typedef struct s_env
@@ -30,20 +32,31 @@ typedef struct s_env
 	char *name;
 } t_env;
 
+typedef enum e_tok_type
+{
+    T_WORD = 12,
+    T_PIPE = 7,
+    T_HEREDOC = 8,
+    T_APPEND = 9,
+    T_REDIRECTION_INFILE = 10,
+    T_REDIRECTION_OUTFILE = 11,
+} t_tok_type;
+
 typedef enum e_stats
 {
-    init = 1,
-    word = 2,
-    quote = 3,
-    double_quote = 4,
-    dollar = 5,
-    dollar_double_quote = 6
+    S_INIT = 1,
+    S_WORD = 2,
+    S_QUOTE = 3,
+    S_DOUBLE_QUOTE = 4,
+    S_DOLLAR = 5,
+    S_DOLLAR_DOUBLE_QUOTE = 6
 }   t_stats;
 
 typedef struct s_msh
 {
     t_cmd   **cmd;
 	t_env	*env;
+    t_tok   *tok;
     char    *prompt;
     int     len_cmds;
     char    **envp;
@@ -51,8 +64,16 @@ typedef struct s_msh
     int fdin; // -1 if not exist
     int fdout;
 }   t_msh;
-///////Envp////////
+///////ENVP////////
 void    organization_env(char **envp,t_msh *msh);
+///////LEXER AND UTILS//////
+void	check_lexer(t_msh *msh, int i);
+int     save_smaller_than(char *smaller, t_tok *tokens);
+int	    save_greater_than(char *greater, t_tok *tokens);
+int	    save_pipe(t_tok *tokens);
+int	    save_wd(char *wd, t_tok *tokens);
+void	create_next_node(t_tok *tokens);
+
 
 //////////////BUILT-INS//////////////
 void    ft_echo(char **args);
