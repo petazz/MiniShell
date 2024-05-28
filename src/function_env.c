@@ -56,14 +56,14 @@ static void	take_env(t_env *aux,char **envp)
 	}
 }
 
-void    organization_env(char **envp,t_msh *msh)
+void    organization_env(char **envp,t_env **env)
 {
 	t_env	*aux;
 
-	msh->env = malloc(sizeof(t_env));
-	if (!msh->env)
+	*env = malloc(sizeof(t_env));
+	if (!*env)
 		return ;
-	aux = msh->env;
+	aux = *env;
 	create_first_node(envp,aux);
 	take_env(aux,envp);
 	//printenv(msh->env);

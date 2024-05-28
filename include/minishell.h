@@ -16,6 +16,7 @@ typedef struct s_cmd
 	char	*path;
 	char	**argv;
 	int		len_argv;
+    struct s_cmd *next;
 } t_cmd;
 
 typedef struct s_tok
@@ -42,8 +43,9 @@ typedef enum e_stats
 
 typedef struct s_msh
 {
-    t_cmd   **cmd;
+    t_cmd   *cmd;
 	t_env	*env;
+    t_env   *export;
     char    *prompt;
     int     len_cmds;
     char    **envp;
@@ -52,13 +54,18 @@ typedef struct s_msh
     int fdout;
 }   t_msh;
 ///////Envp////////
-void    organization_env(char **envp,t_msh *msh);
+void    organization_env(char **envp,t_env **env);
 
 //////////////BUILT-INS//////////////
 void    ft_echo(t_cmd *cmd);
 void	ft_cd(t_cmd *cmd);
 void    ft_pwd();
 void    ft_env(t_cmd *cmd);
+void	ft_sort_expt(t_msh *msh);
+void	ft_add_expt(t_msh *msh);
 void	ft_export(t_msh *msh);
+
+//////////////PRINT///////////////  
+void printenv(t_env *env);
 
 #endif

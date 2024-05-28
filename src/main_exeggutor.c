@@ -3,8 +3,8 @@
 void    init_stack(t_cmd *cmd, t_msh *mock_msh, char **envp)
 {
     char **mock_args = malloc(sizeof(char*) * 10);
-    mock_args[0] = "cd";
-    mock_args[1] = "../../Desktop";
+    mock_args[0] = "echo";
+    mock_args[1] = "$USER";
     // mock_args[2] = "-n";
     // mock_args[2] = "caca";
     // mock_args[3] = "-n";
@@ -15,7 +15,7 @@ void    init_stack(t_cmd *cmd, t_msh *mock_msh, char **envp)
         cmd->argv = mock_args;
         cmd->len_argv = 1;
     ///////////////T_MSH///////////////
-        mock_msh->cmd = &cmd;
+        mock_msh->cmd = cmd;
         mock_msh->len_cmds = 1,
         mock_msh->envp = envp;
         mock_msh->fdin = -1;
@@ -29,15 +29,19 @@ int main(int argc, char **argv, char **envp)
     t_cmd cmd;
     t_msh mock_msh;
     init_stack(&cmd, &mock_msh, envp);
-    organization_env(envp,&mock_msh);
+    organization_env(envp, &mock_msh.env);
+    organization_env(envp, &mock_msh.export);
 
     //ft_echo(&cmd);
     // ft_pwd();
 	// ft_cd(&cmd);
-    // ft_pwd();
+    //ft_pwd();
 	//ft_env(&cmd);
     ft_export(&mock_msh);
-
+   	//printenv(mock_msh.export);
+    //ft_env(&cmd);
+    
+    
     ///////////READLINE////////////
     // char *line = readline("minishell$ ");
     // while (line)
