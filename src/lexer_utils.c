@@ -2,10 +2,7 @@
 
 int	save_smaller_than(char *smaller, t_tok *tokens)
 {
-	int	i;
-
-	i = 0;
-	if (smaller[i] == '<' && smaller[i + 1] == '<')
+	if (smaller[0] == '<' && smaller[1] == '<')
 	{
 		tokens->content = ft_strdup("<<");
 		tokens->type = T_HEREDOC;
@@ -23,10 +20,7 @@ int	save_smaller_than(char *smaller, t_tok *tokens)
 
 int	save_greater_than(char *greater, t_tok *tokens)
 {
-	int	i;
-
-	i = 0;
-	if (greater[i] == '>' && greater[i + 1] == '>')
+	if (greater[0] == '>' && greater[1] == '>')
 	{
 		tokens->content = ft_strdup(">>");
 		tokens->type = T_APPEND;
@@ -56,7 +50,7 @@ int	save_wd(char *wd, t_tok *tokens)
 
 	i = 0;
 	while (wd[i] != '|' && wd[i] != '<' && wd[i] != '>'
-		&& wd[i] != ' ' && wd[i] != '\0')
+		&& wd[i] != ' ' && wd[i] != '\0' && wd[i] != '\'' && wd[i] != '\"')
 		i++;
 	tokens->content = ft_substr(wd, 0, i);
 	tokens->type = T_WORD;

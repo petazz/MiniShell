@@ -6,9 +6,8 @@ int main(int argc, char **argv, char **envp)
     (void)argc;
     (void)argv;
     (void)envp;
-    int i = 0;
-    msh.prompt = ft_strdup("ls -la < << | > >> hola");
+    msh.prompt = ft_strdup("wc -l | echo -n '|||||'");
     //organization_env(envp,&msh);
-    check_lexer(&msh, i);
+    check_lexer(&msh);
     return (0);
 }

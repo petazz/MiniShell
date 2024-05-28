@@ -263,3 +263,22 @@ Esta estructura permite que el shell gestione múltiples redirecciones de manera
 # Ejecutor en Minishell
 
 El ejecutor es responsable de recibir los comandos parseados y los fds, comprobar su validez, y ejecutarlos. Además, maneja comandos internos que no tienen una ruta específica en el sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO LO QUE ESTE ENTRE COMILLAS SIMPLE SE GUARDA TALCUAL
+TODO LO QUE ESTE ENTRE COMILLAS DOBLES SE GUARDA MENOS EL DOLAR.
