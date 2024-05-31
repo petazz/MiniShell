@@ -62,8 +62,12 @@ void	ft_cd(t_cmd *cmd);
 void    ft_pwd();
 void    ft_env(t_cmd *cmd);
 void	ft_sort_expt(t_msh *msh);
-void	ft_add_expt(t_msh *msh);
+void	ft_add_expt(t_msh *msh, int i, int j);
+void	ft_swap(char **a, char **b);
 void	ft_export(t_msh *msh);
+void    ft_pop(t_env **head, char *str);
+void    ft_unset(t_msh *data);
+
 
 //////////////PRINT///////////////  
 void printenv(t_env *env);

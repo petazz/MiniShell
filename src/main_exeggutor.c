@@ -3,9 +3,9 @@
 void    init_stack(t_cmd *cmd, t_msh *mock_msh, char **envp)
 {
     char **mock_args = malloc(sizeof(char*) * 10);
-    mock_args[0] = "echo";
-    mock_args[1] = "$USER";
-    // mock_args[2] = "-n";
+    mock_args[0] = "export";
+    mock_args[1] = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz=exportado";
+    //mock_args[2] = "z2=";
     // mock_args[2] = "caca";
     // mock_args[3] = "-n";
     // mock_args[4] = "hola";
@@ -38,6 +38,7 @@ int main(int argc, char **argv, char **envp)
     //ft_pwd();
 	//ft_env(&cmd);
     ft_export(&mock_msh);
+    //ft_unset(&mock_msh);
    	//printenv(mock_msh.export);
     //ft_env(&cmd);
     
