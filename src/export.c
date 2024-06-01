@@ -70,13 +70,13 @@ t_env	*new_node(int i)
 	return (new);
 }
 
-void	ft_add_expt(t_msh *msh, int i, int j)
+void	ft_add_expt(t_msh *msh, int i, int j, t_env **env)
 {
 	char 	**str;
 	int		equal;
 	t_env	*aux;
 
-	aux = msh->export;
+	aux = *env;
 	str = msh->cmd->argv;
 	while(str[++i])
 	{
@@ -84,16 +84,13 @@ void	ft_add_expt(t_msh *msh, int i, int j)
 		j = 0;
 		while(str[i][j])
 		{
-			if (str[i][j++] == '=' && !equal)
-			{
-				equal++;
+			if (str[i][j++] == '=')
 				break;
-			}
 		}
         aux = new_node(j);
 		ft_strlcpy(aux->name, str[i], j);
 		aux->content = ft_strdup(&str[i][j]);
-        ft_addback(&msh->export, aux);
+        ft_addback(env, aux);
 		aux->next = NULL;
 	}			
 }
@@ -101,7 +98,10 @@ void	ft_add_expt(t_msh *msh, int i, int j)
 void	ft_export(t_msh *msh)
 {
 	if(msh->cmd->len_argv > 0)
-		ft_add_expt(msh, 0, 0);
+	{
+		ft_add_expt(msh, 0, 0, &msh->export);
+		ft_add_expt(msh, 0, 0, &msh->env);
+	}
 	ft_sort_expt(msh);
-    printenv(msh->export);
+    //printenv(msh->export);
 }
