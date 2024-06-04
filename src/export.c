@@ -73,23 +73,25 @@ t_env	*new_node(int i)
 void	ft_add_expt(t_msh *msh, int i, int j, t_env **env)
 {
 	char 	**str;
-	int		equal;
 	t_env	*aux;
 
 	aux = *env;
 	str = msh->cmd->argv;
 	while(str[++i])
 	{
-		equal = 0;
 		j = 0;
 		while(str[i][j])
 		{
-			if (str[i][j++] == '=')
+			if (str[i][j] == '=')
 				break;
+			j++;
 		}
         aux = new_node(j);
-		ft_strlcpy(aux->name, str[i], j);
-		aux->content = ft_strdup(&str[i][j]);
+		ft_strlcpy(aux->name, str[i], ++j);
+		if (str[i][j - 1] != '=')
+ 			aux->content = ft_strdup("");
+ 		else
+			aux->content = ft_strdup(&str[i][j]);
         ft_addback(env, aux);
 		aux->next = NULL;
 	}			

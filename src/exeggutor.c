@@ -32,14 +32,16 @@ void    ft_exeggutor(t_msh *msh)
         }
         dup2(fdout, 1);
         close(fdout);
-        //builtin
-		ret = fork();
-        if (!ret)
+        if (ft_builtins(msh))
         {
-			path = ft_get_path(msh);
-            execve(path, msh->cmd->argv, msh->envp);
-			perror("error");
-			exit(1);
+            ret = fork();
+            if (!ret)
+            {
+                path = ft_get_path(msh);
+                execve(path, msh->cmd->argv, msh->envp);
+                perror("error");
+                exit(1);
+            }
         }
 		msh->cmd = msh->cmd->next;
     }
@@ -47,6 +49,26 @@ void    ft_exeggutor(t_msh *msh)
 	dup2(tmpout, 1);
 	close(tmpin);
 	close(tmpout);
+}
+
+int    ft_builtins(t_msh *msh)
+{
+    if (!ft_strncmp(msh->cmd->argv[0], "echo", 4))
+        return (ft_echo(msh->cmd), 1);
+    else if (!ft_strncmp(msh->cmd->argv[0], "cd", 4))
+        return (ft_cd(msh->cmd), 1);
+    else if (!ft_strncmp(msh->cmd->argv[0], "export", 4))
+        return (ft_export(msh), 1);
+    else if (!ft_strncmp(msh->cmd->argv[0], "unset", 4))
+        return (ft_unset(msh), 1);
+    else if (!ft_strncmp(msh->cmd->argv[0], "pwd", 4))
+        return (ft_pwd(), 1);
+    else if (!ft_strncmp(msh->cmd->argv[0], "env", 4))
+        return (ft_env(msh->cmd), 1);
+    // else if (ft_strncmp(msh->cmd->argv[0], "exit", 4))
+    //     ft_exit(msh->cmd);
+    return (0);
+    
 }
 
 char    *ft_get_content(t_env *env, char *name)

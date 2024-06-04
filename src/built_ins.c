@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:53:17 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/05/31 16:11:52 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/06/04 19:07:13 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	ft_pwd()
 		perror("error");
 	printf("%s\n", cwd);
 	free(cwd);
-}
-
-void	ft_cd(t_cmd *cmd)
-{
-	if (chdir(cmd->argv[1]) < 0)
-		perror("error");
 }
 
 void	ft_env(t_cmd *cmd)

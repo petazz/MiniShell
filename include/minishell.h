@@ -72,6 +72,7 @@ void    ft_unset(t_msh *data);
 void    ft_exeggutor(t_msh *msh);
 char    *ft_get_content(t_env *env, char *name);
 char	*ft_get_path(t_msh *msh);
+int     ft_builtins(t_msh *msh);
 
 
 //////////////PRINT///////////////  
