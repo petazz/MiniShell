@@ -1,13 +1,34 @@
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+static void	init_struck(t_msh *msh)
 {
-	t_msh msh;
-    (void)argc;
-    (void)argv;
-    (void)envp;
-    msh.prompt = ft_strdup("wc -l | echo -n '|||||'");
-    //organization_env(envp,&msh);
-    check_lexer(&msh);
-    return (0);
+	msh->cmd = NULL;
+	msh->fdin = 0;
+	msh->fdout = 0;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_msh	msh;
+
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	init_struck(&msh);
+	msh.prompt = readline("minishell: ");
+	while (msh.prompt)
+	{
+		if (!ft_strlen(msh.prompt))
+		{
+			msh.prompt = readline("minishell: ");
+			continue ;
+		}
+		add_history(msh.prompt);
+
+		if (check_lexer(&msh) == 1)
+			struct_cmd(&msh);
+		free(msh.prompt);
+		msh.prompt = readline("minishell: ");
+	}
+	return (0);
 }
