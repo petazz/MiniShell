@@ -14,6 +14,7 @@
 # define ERROR_NEWLINE "bash: syntax error near unexpected token `newline'"
 # define ERROR_DOUBLE_QUOTES "bash: expected to close the double quote"
 # define ERROR_SIMPLE_QUOTES "bash: expected to close the quote"
+# define ERROR_NO_FILE ": No such file or directory"
 
 typedef struct s_cmd
 {
@@ -88,6 +89,9 @@ void	struct_cmd(t_msh *msh);
 //////////SAVE OUTFILE/////////////
 t_tok	*save_trunc(t_tok *aux, t_msh *msh);
 t_tok	*save_append(t_tok *aux, t_msh *msh);
+/////////SAVE INFILE//////////////
+t_tok	*save_infile(t_tok *tok, t_msh *msh);
+t_tok	*save_heredoc(t_tok *tok, t_msh *msh);
 //////////////BUILT-INS//////////////
 void	ft_echo(char **args);
 void	ft_cd(char **args);

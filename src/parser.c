@@ -91,7 +91,7 @@ static void	create_tokens(t_msh *msh, t_tok *aux, int i)
 			i += save_smaller_than(&msh->prompt[i], aux);
 		else if (msh->prompt[i] == '>')
 			i += save_greater_than(&msh->prompt[i], aux);
-		if (msh->prompt[i] != '\0')
+		if (msh->prompt[i] != '\0' && msh->prompt[i] != ' ') // is not isspace()
 		{
 			create_next_node(aux);
 			aux = aux->next;

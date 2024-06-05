@@ -67,7 +67,7 @@ void	struct_cmd(t_msh *msh)
 	t_tok	*aux;
 
 	aux = msh->tok;
-	while (aux)
+	while (aux != NULL)
 	{
 		if (aux->type == T_WORD)
 			aux = create_node_cmd(aux, msh);
@@ -77,5 +77,9 @@ void	struct_cmd(t_msh *msh)
 			aux = save_append(aux, msh);
 		else if (aux->type == T_REDIRECTION_OUTFILE)
 			aux = save_trunc(aux, msh);
+		else if (aux->type == T_REDIRECTION_INFILE)
+			aux = save_infile(aux, msh);
+		else if (aux->type == T_HEREDOC)
+		 	aux = save_heredoc(aux, msh);
 	}
 }
