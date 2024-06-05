@@ -1,15 +1,27 @@
 #include "minishell.h"
 
-void    ft_cd(t_cmd *cmd)
+void    ft_cd(t_msh *msh)
 {
-	// char *cwd;
+	char *content;
 
-	// cwd = 
-    ft_pwd();
-    // getcwd(NULL, 0);
-	// if(!cwd)
-	// 	perror("error");
-	if (chdir(cmd->argv[1]) < 0)
-		perror("erroooooor");
-    ft_pwd();
+	ft_pwd();
+	if (msh->cmd->len_argv == 1)
+	{
+		content = ft_get_content(msh->env, "HOME");
+		if (!content)
+			perror("error");
+		if (chdir(content) < 0)
+			perror("error");
+	}
+	else if (!strncmp(msh->cmd->argv[1], "-", 1))
+	{
+		content = ft_get_content(msh->env, "OLDPWD");
+		if (!content)
+			perror("error");
+		if (chdir(content) < 0)
+			perror("error");
+	}
+	else if (chdir(msh->cmd->argv[1]) < 0)
+		perror("error");
+	ft_pwd();
 }

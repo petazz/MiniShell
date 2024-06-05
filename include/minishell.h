@@ -58,7 +58,7 @@ void    organization_env(char **envp,t_env **env);
 
 //////////////BUILT-INS//////////////
 void    ft_echo(t_cmd *cmd);
-void	ft_cd(t_cmd *cmd);
+void	ft_cd(t_msh *msh);
 void    ft_pwd();
 void    ft_env(t_cmd *cmd);
 void	ft_sort_expt(t_msh *msh);

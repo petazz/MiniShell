@@ -32,12 +32,14 @@ void    ft_exeggutor(t_msh *msh)
         }
         dup2(fdout, 1);
         close(fdout);
-        if (ft_builtins(msh))
+        if (!ft_builtins(msh))
         {
             ret = fork();
             if (!ret)
             {
                 path = ft_get_path(msh);
+                if (!path)
+                    return(perror("error")); 
                 execve(path, msh->cmd->argv, msh->envp);
                 perror("error");
                 exit(1);
@@ -56,7 +58,7 @@ int    ft_builtins(t_msh *msh)
     if (!ft_strncmp(msh->cmd->argv[0], "echo", 4))
         return (ft_echo(msh->cmd), 1);
     else if (!ft_strncmp(msh->cmd->argv[0], "cd", 4))
-        return (ft_cd(msh->cmd), 1);
+        return (ft_cd(msh), 1);
     else if (!ft_strncmp(msh->cmd->argv[0], "export", 4))
         return (ft_export(msh), 1);
     else if (!ft_strncmp(msh->cmd->argv[0], "unset", 4))
@@ -90,6 +92,8 @@ char	*ft_get_path(t_msh *msh)
 	char	*content;
 
 	j = -1;
+    if (access(msh->cmd->argv[0], X_OK) == 0)
+       return (msh->cmd->argv[0]); 
     content = ft_get_content(msh->env, "PATH");
 	if (!content)
 		return (NULL);
