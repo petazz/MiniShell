@@ -75,15 +75,20 @@ typedef struct s_msh
 }	t_msh;
 ///////ENVP////////
 void	organization_env(char **envp, t_env **env);
+////////FREE///////
+void	free_msh(t_msh *msh);
 ///////UTILS_PARSER/////////
-void	msj_error_free(t_tok *tok, char *str, t_msh *msh);
+void	msj_error(char *str);
 ///////LEXER AND UTILS//////
 int		check_lexer(t_msh *msh);
-int		save_smaller_than(char *smaller, t_tok *tokens);
-int		save_greater_than(char *greater, t_tok *tokens);
-int		save_pipe(t_tok *tokens);
-int		save_wd(char *wd, t_tok *tokens);
-void	create_next_node(t_tok *tokens);
+int		save_smaller_than(char *smaller, t_msh *msh);
+int		save_greater_than(char *greater, t_msh *msh);
+int		save_pipe(t_msh *msh);
+int		save_wd(char *wd, t_msh *msh);
+//////////NODES TOK///////////////
+t_tok	*new_node_tok(int type, char *content);
+void	add_back_tok(t_tok **tok, t_tok *aux);
+void	tok_list(t_tok **tok,int type,char *content);
 //////////STRUCT CMD///////////////
 void	struct_cmd(t_msh *msh);
 //////////SAVE OUTFILE/////////////

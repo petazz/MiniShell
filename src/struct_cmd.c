@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+// static	void	print_cmd(t_cmd *cmd)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (cmd)
+// 	{
+// 		i = 0;
+// 		while (cmd->argv[i])
+// 		{
+// 			printf("content cmd :%s\n", cmd->argv[i]);
+// 			i++;
+// 		}
+// 		cmd = cmd->next;
+// 	}
+// } 
+
 static void	add_back_cmd(t_cmd **cmd, t_cmd *new)
 {
 	t_cmd	*node;
@@ -47,6 +64,7 @@ static t_tok	*create_node_cmd(t_tok *tok, t_msh *msh)
 
 	i = 0;
 	aux = tok;
+	msh->len_cmds += 1;
 	while (aux && aux->type == T_WORD)
 	{
 		aux = aux->next;
@@ -80,6 +98,6 @@ void	struct_cmd(t_msh *msh)
 		else if (aux->type == T_REDIRECTION_INFILE)
 			aux = save_infile(aux, msh);
 		else if (aux->type == T_HEREDOC)
-		 	aux = save_heredoc(aux, msh);
+			aux = save_heredoc(aux, msh);
 	}
 }

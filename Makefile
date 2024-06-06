@@ -20,6 +20,8 @@ FILES_SRC         = main.c \
 					save_outfile.c \
 					save_infile.c \
 					parser.c \
+					nodes_tok.c \
+					free_all.c \
 					main_exeggutor.c \
 					export.c \
 					unset.c \
