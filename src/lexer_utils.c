@@ -1,67 +1,59 @@
 #include "minishell.h"
 
-int	save_smaller_than(char *smaller, t_tok *tokens)
+int	save_smaller_than(char *smaller, t_msh *msh)
 {
+	char *content;
+
 	if (smaller[0] == '<' && smaller[1] == '<')
 	{
-		tokens->content = ft_strdup("<<");
-		tokens->type = T_HEREDOC;
+		content = ft_strdup("<<");
+		tok_list(&msh->tok, T_HEREDOC, content);
 		return (2);
 	}
 	else
 	{
-		tokens->content = ft_strdup("<");
-		tokens->type = T_REDIRECTION_INFILE;
+		content = ft_strdup("<");
+		tok_list(&msh->tok, T_REDIRECTION_INFILE, content);
 		return (1);
 	}
 }
 
-int	save_greater_than(char *greater, t_tok *tokens)
+int	save_greater_than(char *greater, t_msh *msh)
 {
+	char *content;
 	if (greater[0] == '>' && greater[1] == '>')
 	{
-		tokens->content = ft_strdup(">>");
-		tokens->type = T_APPEND;
+		content = ft_strdup(">>");
+		tok_list(&msh->tok, T_APPEND, content);
 		return (2);
 	}
 	else
 	{
-		tokens->content = ft_strdup(">");
-		tokens->type = T_REDIRECTION_OUTFILE;
+		content = ft_strdup(">");
+		tok_list(&msh->tok, T_REDIRECTION_OUTFILE, content);
 		return (1);
 	}
 }
 
-int	save_pipe(t_tok *tokens)
+int	save_pipe(t_msh *msh)
 {
-	tokens->content = ft_strdup("|");
-	tokens->type = T_PIPE;
+	char *content;
+
+	content = ft_strdup("|");
+	tok_list(&msh->tok, T_PIPE, content);
 	return (1);
 }
 
-int	save_wd(char *wd, t_tok *tokens)
+int	save_wd(char *wd, t_msh *msh)
 {
-	int	i;
+	int		i;
+	char	*content;
 
 	i = 0;
 	while (wd[i] != '|' && wd[i] != '<' && wd[i] != '>'
 		&& wd[i] != ' ' && wd[i] != '\0' && wd[i] != '\'' && wd[i] != '\"')
 		i++;
-	tokens->content = ft_substr(wd, 0, i);
-	tokens->type = T_WORD;
+	content = ft_substr(wd, 0, i);
+	tok_list(&msh->tok, T_WORD, content);
 	return (i);
-}
-
-void	create_next_node(t_tok *token)
-{
-	t_tok	*new_node;
-
-	if (!token->next)
-	{
-		new_node = malloc(sizeof(t_tok));
-		if (!new_node)
-			return ;
-		new_node->next = NULL;
-		token->next = new_node;
-	}
 }

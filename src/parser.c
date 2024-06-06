@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-/* static	void	print_token(t_tok *tok)
-{
-	while (tok)
-	{
-		printf("content type:  %d  content tok :%s\n", tok->type, tok->content);
-		tok = tok->next;
-	}
-} */
+// static	void	print_token(t_tok *tok)
+// {
+// 	while (tok)
+// 	{
+// 		printf("content type:  %d  content tok :%s\n", tok->type, tok->content);
+// 		tok = tok->next;
+// 	}
+// } 
 
 static int	syntactic_analysis(t_msh *msh, int i)
 {
@@ -37,41 +37,43 @@ static int	syntactic_analysis(t_msh *msh, int i)
 	return (1);
 }
 
-static	int	save_double_quote(char *str, t_tok *tokens, t_msh *msh)
+static	int	save_double_quote(char *str, t_msh *msh)
 {
 	int	i;
+	char *content;
 
 	i = 1;
 	while (str[i] != '\"' && str[i])
 		i++;
 	if (str[i] == '\"')
 	{
-		tokens->content = ft_substr(str, 1, (i++) - 1);
-		tokens->type = T_WORD;
+		content = ft_substr(str, 1, (i++) - 1);
+		tok_list(&msh->tok, T_WORD, content);
 	}
 	else if (str[i] == '\0')
-		msj_error_free(tokens, ERROR_DOUBLE_QUOTES, msh);
+		msj_error_free(msh->tok, ERROR_DOUBLE_QUOTES, msh);
 	return (i);
 }
 
-static	int	save_quote(char *str, t_tok *tokens, t_msh *msh)
+static	int	save_quote(char *str, t_msh *msh)
 {
 	int	i;
+	char	*content;
 
 	i = 1;
 	while (str[i] != '\'' && str[i])
 		i++;
 	if (str[i] == '\'')
 	{
-		tokens->content = ft_substr(str, 1, (i++) - 1);
-		tokens->type = T_WORD;
+		content = ft_substr(str, 1, (i++) - 1);
+		tok_list(&msh->tok, T_WORD, content);
 	}
 	else if (str[i] == '\0')
-		msj_error_free(tokens, ERROR_SIMPLE_QUOTES, msh);
+		msj_error_free(msh->tok, ERROR_SIMPLE_QUOTES, msh);
 	return (i);
 }
 
-static void	create_tokens(t_msh *msh, t_tok *aux, int i)
+static void	create_tokens(t_msh *msh, int i)
 {
 	while (msh->prompt[i])
 	{
@@ -80,36 +82,25 @@ static void	create_tokens(t_msh *msh, t_tok *aux, int i)
 		if (msh->prompt[i] != '|' && msh->prompt[i] != '<'
 			&& msh->prompt[i] != '>' && msh->prompt[i] != '\0'
 			&& msh->prompt[i] != '\'' && msh->prompt[i] != '\"')
-			i += save_wd(&msh->prompt[i], aux);
+			i += save_wd(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '\'')
-			i += save_quote(&msh->prompt[i], aux, msh);
+			i += save_quote(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '\"')
-			i += save_double_quote(&msh->prompt[i], aux, msh);
+			i += save_double_quote(&msh->prompt[i],msh);
 		else if (msh->prompt[i] == '|')
-			i += save_pipe(aux);
+			i += save_pipe(msh);
 		else if (msh->prompt[i] == '<')
-			i += save_smaller_than(&msh->prompt[i], aux);
+			i += save_smaller_than(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '>')
-			i += save_greater_than(&msh->prompt[i], aux);
-		if (msh->prompt[i] != '\0' && msh->prompt[i] != ' ') // is not isspace()
-		{
-			create_next_node(aux);
-			aux = aux->next;
-		}
+			i += save_greater_than(&msh->prompt[i], msh);
 	}
 }
 
 int	check_lexer(t_msh *msh)
 {
-	t_tok	*aux;
 	int 	ret;
 
-	msh->tok = malloc(sizeof(t_tok));
-	if (!msh->tok)
-		return(0);
-	msh->tok->next = NULL;
-	aux = msh->tok;
-	create_tokens(msh, aux, 0);
+	create_tokens(msh, 0);
 	ret = syntactic_analysis(msh, 1);
 	return (ret);
 }

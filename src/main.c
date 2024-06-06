@@ -3,8 +3,10 @@
 static void	init_struck(t_msh *msh)
 {
 	msh->cmd = NULL;
+	msh->tok = NULL;
 	msh->fdin = 0;
 	msh->fdout = 0;
+	msh->len_cmds = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -24,12 +26,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		add_history(msh.prompt);
-
 		if (check_lexer(&msh) == 1)
-		{
 			struct_cmd(&msh);
-		}
-		free(msh.prompt);
+		free_msh(&msh);
 		msh.prompt = readline("prueba mi conchita$ ");
 	}
 	return (0);
