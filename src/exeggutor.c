@@ -15,6 +15,7 @@ void    ft_exeggutor(t_msh *msh)
     i = -1;
     if (msh->fdin == -1)
         msh->fdin = dup(tmpin);
+    printf("len_cmds: %d\n", msh->len_cmds);
     while(++i < msh->len_cmds)
     {
         dup2(msh->fdin, 0);
@@ -32,6 +33,7 @@ void    ft_exeggutor(t_msh *msh)
         }
         dup2(fdout, 1);
         close(fdout);
+    printf("llega\n");
         if (!ft_builtins(msh))
         {
             ret = fork();
@@ -39,9 +41,12 @@ void    ft_exeggutor(t_msh *msh)
             {
                 path = ft_get_path(msh);
                 if (!path)
-                    return(perror("error")); 
+                    return(perror("path"));
+                dprintf(2, "path: %s\n", path);
+                dprintf(2, "argv1: %s\n", msh->cmd->argv[0]);
+                dprintf(2, "argv2: %s\n", msh->cmd->argv[1]);
                 execve(path, msh->cmd->argv, msh->envp);
-                perror("error");
+                perror("exec");
                 exit(1);
             }
         }

@@ -10,52 +10,88 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# define ERROR_PIPES "bash: syntax error near unexpected token `|'"
+# define ERROR_NEWLINE "bash: syntax error near unexpected token `newline'"
+# define ERROR_DOUBLE_QUOTES "bash: expected to close the double quote"
+# define ERROR_SIMPLE_QUOTES "bash: expected to close the quote"
+# define ERROR_NO_FILE ": No such file or directory"
 
 typedef struct s_cmd
 {
-	char	*path;
-	char	**argv;
-	int		len_argv;
-    struct s_cmd *next;
-} t_cmd;
+	char			**argv;
+	int				len_argv;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_tok
 {
-    struct s_tok *next;
-}   t_tok;
+	struct s_tok	*next;
+	char			*content;
+	int				type;
+}	t_tok;
 
 typedef struct s_env
 {
-	struct s_env *next;
-	char *content;
-	char *name;
-} t_env;
+	struct s_env	*next;
+	char			*content;
+	char			*name;
+}	t_env;
+
+typedef enum e_tok_type
+{
+	T_PIPE = 7,
+	T_HEREDOC = 8,
+	T_APPEND = 9,
+	T_REDIRECTION_INFILE = 10,
+	T_REDIRECTION_OUTFILE = 11,
+	T_WORD = 12,
+	T_SIMPLE_QUOTE = 13,
+	T_DOUBLE_QUOTE = 14,
+	T_DOUBLE_QUOTE_DOLLAR = 15
+}	t_tok_type;
 
 typedef enum e_stats
 {
-    init = 1,
-    word = 2,
-    quote = 3,
-    double_quote = 4,
-    dollar = 5,
-    dollar_double_quote = 6
-}   t_stats;
+	S_INIT = 1,
+	S_WORD = 2,
+	S_QUOTE = 3,
+	S_DOUBLE_QUOTE = 4,
+	S_DOLLAR = 5,
+	S_DOLLAR_DOUBLE_QUOTE = 6
+}	t_stats;
 
 typedef struct s_msh
 {
-    t_cmd   *cmd;
+	t_cmd	*cmd;
 	t_env	*env;
-    t_env   *export;
-    char    *prompt;
-    int     len_cmds;
-    char    **envp;
-    char    **tokens;
-    int fdin; // -1 if not exist
-    int fdout;
-}   t_msh;
-///////Envp////////
-void    organization_env(char **envp,t_env **env);
+	t_env	*export;
+	t_tok	*tok;
+	char	*prompt;
+	int		len_cmds;
+	char	**envp;
+	int		fdin;
+	int		fdout;
 
+}	t_msh;
+///////ENVP////////
+void	organization_env(char **envp, t_env **env);
+///////UTILS_PARSER/////////
+void	msj_error_free(t_tok *tok, char *str, t_msh *msh);
+///////LEXER AND UTILS//////
+int		check_lexer(t_msh *msh);
+int		save_smaller_than(char *smaller, t_tok *tokens);
+int		save_greater_than(char *greater, t_tok *tokens);
+int		save_pipe(t_tok *tokens);
+int		save_wd(char *wd, t_tok *tokens);
+void	create_next_node(t_tok *tokens);
+//////////STRUCT CMD///////////////
+void	struct_cmd(t_msh *msh);
+//////////SAVE OUTFILE/////////////
+t_tok	*save_trunc(t_tok *aux, t_msh *msh);
+t_tok	*save_append(t_tok *aux, t_msh *msh);
+/////////SAVE INFILE//////////////
+t_tok	*save_infile(t_tok *tok, t_msh *msh);
+t_tok	*save_heredoc(t_tok *tok, t_msh *msh);
 //////////////BUILT-INS//////////////
 void    ft_echo(t_cmd *cmd);
 void	ft_cd(t_msh *msh);

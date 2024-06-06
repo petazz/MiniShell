@@ -31,36 +31,36 @@ void jarre_pipes(t_msh *msh, int argc, char **argv, char **envp)
     msh->fdout = -1;
 }
 
-int main(int argc, char **argv, char **envp)
-{
-    //t_cmd cmd;
-    t_msh mock_msh;
-    jarre_stack(&mock_msh, argc - 1, &argv[1], envp);
-    //jarre_pipes(&mock_msh, argc - 1, &argv[1], envp);
-    organization_env(envp, &mock_msh.env);
-    organization_env(envp, &mock_msh.export);
-    ft_exeggutor(&mock_msh);
+// int main(int argc, char **argv, char **envp)
+// {
+//     //t_cmd cmd;
+//     t_msh mock_msh;
+//     jarre_stack(&mock_msh, argc - 1, &argv[1], envp);
+//     //jarre_pipes(&mock_msh, argc - 1, &argv[1], envp);
+//     organization_env(envp, &mock_msh.env);
+//     organization_env(envp, &mock_msh.export);
+//     ft_exeggutor(&mock_msh);
 
-    //ft_echo(&cmd);
-    // ft_pwd();
-	// ft_cd(&cmd);
-    //ft_pwd();
-	//ft_env(&cmd);
-    //ft_export(&mock_msh);
-    //ft_unset(&mock_msh);
-   	//printenv(mock_msh.export);
-    //printf("\n\n\n\n\n\n\n\n");
-   	//printenv(mock_msh.env);
-    //ft_env(&cmd);
+//     //ft_echo(&cmd);
+//     // ft_pwd();
+// 	// ft_cd(&cmd);
+//     //ft_pwd();
+// 	//ft_env(&cmd);
+//     //ft_export(&mock_msh);
+//     //ft_unset(&mock_msh);
+//    	//printenv(mock_msh.export);
+//     //printf("\n\n\n\n\n\n\n\n");
+//    	//printenv(mock_msh.env);
+//     //ft_env(&cmd);
     
     
-    ///////////READLINE////////////
-    // char *line = readline("minishell$ ");
-    // while (line)
-    // {
-    //  add_history(line);
-    //  free(line);
-    //  line = readline("minishell$ ");
-    // }
-    return (0);
-}
+//     ///////////READLINE////////////
+//     // char *line = readline("minishell$ ");
+//     // while (line)
+//     // {
+//     //  add_history(line);
+//     //  free(line);
+//     //  line = readline("minishell$ ");
+//     // }
+//     return (0);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: misaguir <misaguir@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:46:21 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/26 17:34:41 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:36:34 by misaguir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-
-
 int	ft_printf(const char *format, ...);
 int	ft_putchar(char c);
 int	ft_putnbr_he(unsigned int nbr);
@@ -82,7 +80,6 @@ int	ft_putnbr_pf(int n);
 int	ft_putstr_pf(char *s);
 int	ft_putnbr_unsigned(unsigned int n);
 int	ft_p(unsigned long p);
-
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
