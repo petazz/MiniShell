@@ -30,7 +30,6 @@ int	main(int argc, char **argv, char **envp)
 		if (check_lexer(&msh) == 1)
 			struct_cmd(&msh);
 		msh.envp = envp;
-		printf("acaba parser. argc: %s\n", msh.cmd->argv[0]);
 		ft_exeggutor(&msh);
 		free_msh(&msh);
 		msh.prompt = readline("prueba mi conchita$ ");
