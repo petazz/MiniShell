@@ -78,7 +78,7 @@ void	organization_env(char **envp, t_msh *msh);
 ////////FREE///////
 void	free_msh(t_msh *msh);
 ///////UTILS_PARSER/////////
-void	msj_error_free(t_tok *tok, char *str, t_msh *msh);
+void	msj_error(char *str);
 ///////LEXER AND UTILS//////
 int		check_lexer(t_msh *msh);
 int		save_smaller_than(char *smaller, t_msh *msh);

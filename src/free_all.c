@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-static void free_token(t_tok **token)
+static void	free_token(t_tok **token)
 {
-	t_tok *aux;
+	t_tok	*aux;
 
 	if (!*token || !token)
 		return ;
@@ -14,6 +14,7 @@ static void free_token(t_tok **token)
 		*token = aux;
 	}
 }
+
 static void	free_matrix(char **matrix)
 {
 	int	i;

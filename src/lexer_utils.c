@@ -2,7 +2,7 @@
 
 int	save_smaller_than(char *smaller, t_msh *msh)
 {
-	char *content;
+	char	*content;
 
 	if (smaller[0] == '<' && smaller[1] == '<')
 	{
@@ -20,7 +20,8 @@ int	save_smaller_than(char *smaller, t_msh *msh)
 
 int	save_greater_than(char *greater, t_msh *msh)
 {
-	char *content;
+	char	*content;
+
 	if (greater[0] == '>' && greater[1] == '>')
 	{
 		content = ft_strdup(">>");
@@ -37,7 +38,7 @@ int	save_greater_than(char *greater, t_msh *msh)
 
 int	save_pipe(t_msh *msh)
 {
-	char *content;
+	char	*content;
 
 	content = ft_strdup("|");
 	tok_list(&msh->tok, T_PIPE, content);

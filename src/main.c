@@ -4,8 +4,8 @@ static void	init_struck(t_msh *msh)
 {
 	msh->cmd = NULL;
 	msh->tok = NULL;
-	msh->fdin = 0;
-	msh->fdout = 0;
+	msh->fdin = -1;
+	msh->fdout = -1;
 	msh->len_cmds = 0;
 }
 

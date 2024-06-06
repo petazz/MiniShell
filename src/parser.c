@@ -18,17 +18,17 @@ static int	syntactic_analysis(t_msh *msh, int i)
 	{
 		if (aux->type == T_PIPE && i == 1)
 		{
-			msj_error_free(aux, ERROR_PIPES, msh);
+			msj_error(ERROR_PIPES);
 			return (0);
 		}
 		else if (aux->type >= 7 && aux->type <= 11 && aux->next == NULL)
 		{
-			msj_error_free(aux, ERROR_NEWLINE, msh);
+			msj_error(ERROR_NEWLINE);
 			return (0);
 		}
 		else if (aux->type >= 8 && aux->type <= 11 && aux->next->type != T_WORD)
 		{
-			msj_error_free(aux, ERROR_NEWLINE, msh);
+			msj_error(ERROR_NEWLINE);
 			return (0);
 		}
 		i = 0;
@@ -39,8 +39,8 @@ static int	syntactic_analysis(t_msh *msh, int i)
 
 static	int	save_double_quote(char *str, t_msh *msh)
 {
-	int	i;
-	char *content;
+	int		i;
+	char	*content;
 
 	i = 1;
 	while (str[i] != '\"' && str[i])
@@ -51,13 +51,13 @@ static	int	save_double_quote(char *str, t_msh *msh)
 		tok_list(&msh->tok, T_WORD, content);
 	}
 	else if (str[i] == '\0')
-		msj_error_free(msh->tok, ERROR_DOUBLE_QUOTES, msh);
+		msj_error(ERROR_DOUBLE_QUOTES);
 	return (i);
 }
 
 static	int	save_quote(char *str, t_msh *msh)
 {
-	int	i;
+	int		i;
 	char	*content;
 
 	i = 1;
@@ -69,7 +69,7 @@ static	int	save_quote(char *str, t_msh *msh)
 		tok_list(&msh->tok, T_WORD, content);
 	}
 	else if (str[i] == '\0')
-		msj_error_free(msh->tok, ERROR_SIMPLE_QUOTES, msh);
+		msj_error(ERROR_SIMPLE_QUOTES);
 	return (i);
 }
 
@@ -86,7 +86,7 @@ static void	create_tokens(t_msh *msh, int i)
 		else if (msh->prompt[i] == '\'')
 			i += save_quote(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '\"')
-			i += save_double_quote(&msh->prompt[i],msh);
+			i += save_double_quote(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '|')
 			i += save_pipe(msh);
 		else if (msh->prompt[i] == '<')
@@ -98,7 +98,7 @@ static void	create_tokens(t_msh *msh, int i)
 
 int	check_lexer(t_msh *msh)
 {
-	int 	ret;
+	int	ret;
 
 	create_tokens(msh, 0);
 	ret = syntactic_analysis(msh, 1);

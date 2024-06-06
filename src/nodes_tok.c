@@ -1,8 +1,9 @@
-# include "minishell.h"
+#include "minishell.h"
 
 t_tok	*new_node_tok(int type, char *content)
 {
 	t_tok	*tok;
+
 	tok = (t_tok *)malloc(sizeof(t_tok));
 	if (!tok)
 		return (NULL);
@@ -11,7 +12,8 @@ t_tok	*new_node_tok(int type, char *content)
 	tok->next = NULL;
 	return (tok);
 }
-void		add_back_tok(t_tok **tok, t_tok *aux)
+
+void	add_back_tok(t_tok **tok, t_tok *aux)
 {
 	t_tok	*node;
 
@@ -26,9 +28,10 @@ void		add_back_tok(t_tok **tok, t_tok *aux)
 		*tok = node;
 	}
 }
-void	tok_list(t_tok **tok,int type,char *content)
+
+void	tok_list(t_tok **tok, int type, char *content)
 {
-	t_tok *aux;
+	t_tok	*aux;
 
 	if (!*tok)
 		*tok = new_node_tok(type, content);
