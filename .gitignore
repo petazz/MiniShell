@@ -1,0 +1,5 @@
+*.o
+*.a
+minishell
+minishell.dSYM
+*.md
