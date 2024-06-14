@@ -21,8 +21,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	init_struck(&msh);
+	organization_env(envp, &msh.env);
+	organization_env(envp, &msh.export);
 	msh.prompt = readline("prueba mi conchita$ ");
 	while (msh.prompt)
 	{
@@ -38,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 			change_type(&msh);
 			struct_cmd(&msh);
 		}
+		ft_exeggutor(&msh);
 		free_msh(&msh);
 		msh.prompt = readline("prueba mi conchita$ ");
 	}

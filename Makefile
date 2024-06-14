@@ -5,7 +5,7 @@ LIBFT_DIR         = libft/
 LIBFT             = libft.a
 NAME              = minishell
 CC                = clang
-CFLAGS            = -Wall -Werror -Wextra -Iincludes -g -Iinclude
+CFLAGS            = -Wall -Werror -Wextra -Iincludes -g3 -Iinclude
 RM                = rm -rf
 
 SRC_DIR           = src/
@@ -14,15 +14,19 @@ OBJ_DIR           = obj/
 FILES_SRC         = main.c \
 					built_ins.c \
 					function_env.c \
-					parser.c \
 					save_character.c \
 					struct_cmd.c \
 					save_outfile.c \
 					save_infile.c \
+					parser.c \
 					nodes_tok.c \
 					free_all.c \
 					save_wd.c \
 					union_nodes.c \
+					export.c \
+					unset.c \
+					exeggutor.c \
+					cd.c
 
 SRC               = $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC           = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
