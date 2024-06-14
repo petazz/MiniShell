@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-// static	void	print_token(t_tok *tok)
-// {
-// 	while (tok)
-// 	{
-// 		printf("content type:  %d  content tok :%s\n", tok->type, tok->content);
-// 		tok = tok->next;
-// 	}
-// } 
+void	print_token(t_tok *tok)
+{
+	while (tok)
+	{
+		printf("content flag: %d content type:  %d  content tok :%s\n",tok->flag, tok->type, tok->content);
+		tok = tok->next;
+	}
+} 
 
 static int	syntactic_analysis(t_msh *msh, int i)
 {
@@ -26,7 +26,8 @@ static int	syntactic_analysis(t_msh *msh, int i)
 			msj_error(ERROR_NEWLINE);
 			return (0);
 		}
-		else if (aux->type >= 8 && aux->type <= 11 && aux->next->type != T_WORD)
+		else if ((aux->type >= 8 && aux->type <= 11) && (aux->next->type != T_WORD &&
+			aux->next->type != T_DOUBLE_QUOTE && aux->next->type != T_SIMPLE_QUOTE))
 		{
 			msj_error(ERROR_NEWLINE);
 			return (0);
@@ -41,14 +42,19 @@ static	int	save_double_quote(char *str, t_msh *msh)
 {
 	int		i;
 	char	*content;
+	int 	flag;
 
 	i = 1;
+	flag = 0;
 	while (str[i] != '\"' && str[i])
 		i++;
 	if (str[i] == '\"')
 	{
+		if (str[i + 1] != '|' && str[i + 1] != '>'
+		&& str[i + 1] != '<' && str[i + 1] != ' ')
+			flag = 1;
 		content = ft_substr(str, 1, (i++) - 1);
-		tok_list(&msh->tok, T_WORD, content);
+		tok_list(&msh->tok, T_DOUBLE_QUOTE, content, flag);
 	}
 	else if (str[i] == '\0')
 		msj_error(ERROR_DOUBLE_QUOTES);
@@ -59,14 +65,19 @@ static	int	save_quote(char *str, t_msh *msh)
 {
 	int		i;
 	char	*content;
+	int 	flag;
 
 	i = 1;
+	flag = 0;
 	while (str[i] != '\'' && str[i])
 		i++;
 	if (str[i] == '\'')
 	{
+		if (str[i + 1] != '|' && str[i + 1] != '>'
+		&& str[i + 1] != '<' && str[i + 1] != ' ')
+			flag = 1;
 		content = ft_substr(str, 1, (i++) - 1);
-		tok_list(&msh->tok, T_WORD, content);
+		tok_list(&msh->tok, T_SIMPLE_QUOTE, content, flag);
 	}
 	else if (str[i] == '\0')
 		msj_error(ERROR_SIMPLE_QUOTES);
@@ -81,7 +92,8 @@ static void	create_tokens(t_msh *msh, int i)
 			i++;
 		if (msh->prompt[i] != '|' && msh->prompt[i] != '<'
 			&& msh->prompt[i] != '>' && msh->prompt[i] != '\0'
-			&& msh->prompt[i] != '\'' && msh->prompt[i] != '\"')
+			&& msh->prompt[i] != '\'' && msh->prompt[i] != '\"'
+			&& msh->prompt[i] != '\\')
 			i += save_wd(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '\'')
 			i += save_quote(&msh->prompt[i], msh);
@@ -93,6 +105,8 @@ static void	create_tokens(t_msh *msh, int i)
 			i += save_smaller_than(&msh->prompt[i], msh);
 		else if (msh->prompt[i] == '>')
 			i += save_greater_than(&msh->prompt[i], msh);
+		else if (msh->prompt[i] == '\\')
+			i += save_scape(&msh->prompt[i], msh);
 	}
 }
 

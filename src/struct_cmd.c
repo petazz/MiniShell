@@ -1,21 +1,21 @@
 #include "minishell.h"
 
-// static	void	print_cmd(t_cmd *cmd)
-// {
-// 	int i;
+static	void	print_cmd(t_cmd *cmd)
+{
+	int i;
 
-// 	i = 0;
-// 	while (cmd)
-// 	{
-// 		i = 0;
-// 		while (cmd->argv[i])
-// 		{
-// 			printf("content cmd :%s\n", cmd->argv[i]);
-// 			i++;
-// 		}
-// 		cmd = cmd->next;
-// 	}
-// } 
+	i = 0;
+	while (cmd)
+	{
+		i = 0;
+		while (cmd->argv[i])
+		{
+			printf("content cmd :%s\n", cmd->argv[i]);
+			i++;
+		}
+		cmd = cmd->next;
+	}
+} 
 
 static void	add_back_cmd(t_cmd **cmd, t_cmd *new)
 {
@@ -40,7 +40,7 @@ static t_cmd	*new_node_cmd(int i, t_tok *tok)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->argv = malloc(sizeof(char *) * i);
+	cmd->argv = malloc(sizeof(char *) * (i + 1));
 	if (!cmd->argv)
 		return (NULL);
 	cmd->len_argv = i;
@@ -100,4 +100,5 @@ void	struct_cmd(t_msh *msh)
 		else if (aux->type == T_HEREDOC)
 			aux = save_heredoc(aux, msh);
 	}
+	print_cmd(msh->cmd);
 }

@@ -9,6 +9,12 @@ static void	init_struck(t_msh *msh)
 	msh->len_cmds = 0;
 }
 
+void	msj_error(char *str)
+{
+	ft_putendl_fd(str, 2);
+	return ;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_msh	msh;
@@ -27,7 +33,11 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(msh.prompt);
 		if (check_lexer(&msh) == 1)
+		{
+			union_tok(&msh, 1);
+			change_type(&msh);
 			struct_cmd(&msh);
+		}
 		free_msh(&msh);
 		msh.prompt = readline("prueba mi conchita$ ");
 	}

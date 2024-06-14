@@ -280,5 +280,11 @@ El ejecutor es responsable de recibir los comandos parseados y los fds, comproba
 
 
 
-TODO LO QUE ESTE ENTRE COMILLAS SIMPLE SE GUARDA TALCUAL
-TODO LO QUE ESTE ENTRE COMILLAS DOBLES SE GUARDA MENOS EL DOLAR.
+
+
+
+PREPARSEAR EL PROMPT CUANDO ME ENCUENTRO COMILLAS CARGARMELAS Y EMPEZAR A ESCAPAR LOS ESPACIOS DE ADENTRO DE LAS COMILLAS 
+
+awk '{count++} END {printf count}' 
+awk {count++}ªENDª{printfªcount} 
+ft_sust(char *str, char c, char d)

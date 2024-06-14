@@ -15,6 +15,7 @@
 # define ERROR_DOUBLE_QUOTES "bash: expected to close the double quote"
 # define ERROR_SIMPLE_QUOTES "bash: expected to close the quote"
 # define ERROR_NO_FILE ": No such file or directory"
+# define ERROR_SLASH "bash: expected to scape character"
 
 typedef struct s_cmd
 {
@@ -28,6 +29,7 @@ typedef struct s_tok
 	struct s_tok	*next;
 	char			*content;
 	int				type;
+	int				flag;
 }	t_tok;
 
 typedef struct s_env
@@ -73,22 +75,28 @@ typedef struct s_msh
 	int		fdout;
 
 }	t_msh;
+///////BORRAR//////
+void	print_token(t_tok *tok);
 ///////ENVP////////
 void	organization_env(char **envp, t_msh *msh);
 ////////FREE///////
 void	free_msh(t_msh *msh);
-///////UTILS_PARSER/////////
+/////////MSJ_ERROR//////////
 void	msj_error(char *str);
+/////////UNION_TOK//////////
+void	union_tok(t_msh *msh, int flag_next);
+void	change_type(t_msh *msh);
 ///////LEXER AND UTILS//////
 int		check_lexer(t_msh *msh);
 int		save_smaller_than(char *smaller, t_msh *msh);
 int		save_greater_than(char *greater, t_msh *msh);
 int		save_pipe(t_msh *msh);
 int		save_wd(char *wd, t_msh *msh);
+int		save_scape(char *wd, t_msh *msh);
 //////////NODES TOK///////////////
-t_tok	*new_node_tok(int type, char *content);
+t_tok	*new_node_tok(int type, char *content, int flag);
 void	add_back_tok(t_tok **tok, t_tok *aux);
-void	tok_list(t_tok **tok,int type,char *content);
+void	tok_list(t_tok **tok,int type,char *content, int flag);
 //////////STRUCT CMD///////////////
 void	struct_cmd(t_msh *msh);
 //////////SAVE OUTFILE/////////////

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_tok	*new_node_tok(int type, char *content)
+t_tok	*new_node_tok(int type, char *content, int flag)
 {
 	t_tok	*tok;
 
@@ -9,6 +9,7 @@ t_tok	*new_node_tok(int type, char *content)
 		return (NULL);
 	tok->content = ft_strdup(content);
 	tok->type = type;
+	tok->flag = flag;
 	tok->next = NULL;
 	return (tok);
 }
@@ -29,15 +30,14 @@ void	add_back_tok(t_tok **tok, t_tok *aux)
 	}
 }
 
-void	tok_list(t_tok **tok, int type, char *content)
+void	tok_list(t_tok **tok, int type, char *content, int flag)
 {
 	t_tok	*aux;
-
 	if (!*tok)
-		*tok = new_node_tok(type, content);
+		*tok = new_node_tok(type, content, flag);
 	else
 	{
-		aux = new_node_tok(type, content);
+		aux = new_node_tok(type, content, flag);
 		add_back_tok(tok, aux);
 	}
 	free(content);
